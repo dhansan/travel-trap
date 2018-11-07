@@ -8,7 +8,8 @@ var gulp 		      = require('gulp'),
     autoprefixer  = require('autoprefixer'),
     cssvars       = require('postcss-simple-vars'),
     nested        = require('postcss-nested'),
-    cssImport     = require('postcss-import');
+    cssImport     = require('postcss-import'),
+    browserSync   = require('browser-sync').create();
 
 gulp.task('default', function() {
   console.log("test berhasil");
@@ -29,11 +30,23 @@ gulp.task('styles', function() {
 //////////////////
 // Watch   Task //
 //////////////////
-gulp.task('watch', function() {
-  watch('./app/index.html', function() {
-    gulp.start('html');
+gulp.task('watch',function(){
+  browserSync.init({
+    notify: false,
+    server: {
+      baseDir: "app"
+    }
   });
-  watch('./app/assets/styles/**/*.css', function() {
-    gulp.start('styles');
+  watch('./app/index.html', function(){
+    browserSync.reload();
   });
+
+  watch('./app/assets/styles/**/*.css', function(){
+    gulp.start('cssInject');
+  });
+});
+
+gulp.task('cssInject', ['styles'], function() {
+  return gulp.src('./app/temp/styles/styles.css')
+    .pipe(browserSync.stream());
 });
