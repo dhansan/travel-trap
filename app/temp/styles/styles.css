@@ -352,9 +352,14 @@ img {
 }
 
 .large-hero {
+  border-bottom: 10px solid #2f5572;
   position: relative;
 
 }
+
+.large-hero__image {
+    display: block;
+  }
 
 .large-hero__text-content {
     position: absolute;
@@ -437,4 +442,16 @@ img {
 .wrapper {
   padding-left: 18px;
   padding-right: 18px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+.page-section {
+  padding: 4.5rem 0;
+}
+
+.page-section--blue {
+    background-color: #2f5572;
+    color: #FFF;
+  }
